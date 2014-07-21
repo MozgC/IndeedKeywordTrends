@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IndeedKeywordTrends", "IndeedKeywordTrends\IndeedKeywordTrends.csproj", "{7EE0520A-5C15-406C-A1A4-6D8707B90510}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IndeedKeywordByLocation", "IndeedKeywordByLocation\IndeedKeywordByLocation.csproj", "{8E0B449C-35BE-4AB1-80FC-762DB047E561}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7EE0520A-5C15-406C-A1A4-6D8707B90510}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EE0520A-5C15-406C-A1A4-6D8707B90510}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EE0520A-5C15-406C-A1A4-6D8707B90510}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EE0520A-5C15-406C-A1A4-6D8707B90510}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E0B449C-35BE-4AB1-80FC-762DB047E561}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E0B449C-35BE-4AB1-80FC-762DB047E561}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E0B449C-35BE-4AB1-80FC-762DB047E561}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E0B449C-35BE-4AB1-80FC-762DB047E561}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
