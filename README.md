@@ -1,0 +1,5 @@
+This project contains two small console apps I wrote to query indeed.com in ways I couldn't through the website.
+
+IndeedKeywordTrends shows the number of jobs for a set of keywords across multiple major cities for different radii. In other words, it can show me the concentration of jobs for keywords (e.g. scala, python, angular) across major U.S. cities. It appends all results to the same csv file, so if you run it over time you can see trends for those keywords in those cities (e.g. see angular quadruple in San Francisco and New York City over the course of three months but stay relatively static in Alpharetta, GA).
+
+IndeedKeywordByLocation shows the concentration of jobs by keyword by city for less common keywords (e.g. typescript, webgl). It queries every single job for the specified keyword and then groups them by city, so I can easily see that the highest concentrations of jobs that mention webgl, typescript, or d3.js are in... San Francisco and New York City. Surprise surprise. Don't run this for keywords that return a lot of jobs or else indeed will rate limit you.
