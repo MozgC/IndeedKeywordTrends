@@ -21,27 +21,24 @@ namespace IndeedKeywordByLocation
             string outFile = string.Format("'{0}' by location.csv", searchTerms);
             File.WriteAllLines(outFile, new[] { "Query,Date,City,State,Source,Sponsored,Expired,FormattedRelativeTime" });
 
-            var allResults = GetAllPagedResults(searchTerms, key);
+            List<Job> jobs = GetAllJobs(searchTerms, key);
 
-            outLines.AddRange(
-                allResults.Results.Select(job => string.Format("{0},\"{1}\",{2},{3},\"{4}\",{5},{6},{7},\"{8}\"",
+            outLines.AddRange(jobs.Select(job => string.Format("{0},\"{1}\",{2},{3},\"{4}\",{5},{6},{7},\"{8}\"",
                                                                searchTerms, job.Date, job.City, job.State, job.Source,
                                                                job.Sponsored, job.Expired, job.FormattedRelativeTime,
                                                                job.Snippet)));
             File.AppendAllLines(outFile, outLines);
 
-            var cityGroups = allResults.Results.GroupBy(x => x.City).OrderByDescending(x => x.Count());
+            var cityGroups = jobs.GroupBy(x => x.City).OrderByDescending(x => x.Count());
             var groupOutLines =
                 cityGroups.Select(cityGroup => string.Format("{0} jobs in {1}", cityGroup.Count(), cityGroup.Key))
                           .ToList();
             File.AppendAllLines(outFile, groupOutLines);
         }
 
-        public static IndeedQueryResult GetAllPagedResults(string searchTerms, string indeedApiKey)
+        public static List<Job> GetAllJobs(string searchTerms, string indeedApiKey)
         {
-            int start = 0;
             const int pageSize = 25;
-            int page = 0;
 
             string indeedUrlFormat = "http://api.indeed.com/ads/apisearch?publisher=" + indeedApiKey + "&" +
                                      "start={0}&" +
@@ -50,36 +47,31 @@ namespace IndeedKeywordByLocation
                                      "format=json&" +
                                      "q={2}&";
 
-            IndeedQueryResult totalResult = null;
+            var jobs = new List<Job>();
 
-            int lastNumOfRetrievedResults = 0;
             using (var wc = new WebClient())
             {
-                while (totalResult == null || lastNumOfRetrievedResults == pageSize)
+                for (int page = 0;; page++)
                 {
-                    string apiQuery = string.Format(indeedUrlFormat, start, pageSize, Uri.EscapeDataString(searchTerms));
+                    int pageStart = page * pageSize;
+                    string apiQuery = string.Format(indeedUrlFormat, pageStart, pageSize, Uri.EscapeDataString(searchTerms));
                     var json = wc.DownloadString(apiQuery);
                     Console.WriteLine(json);
 
                     var queryResult = JsonConvert.DeserializeObject<IndeedQueryResult>(json);
 
-                    if (totalResult == null)
+                    jobs.AddRange(queryResult.Results);
+
+                    if (jobs.Count >= queryResult.TotalResults)
                     {
-                        totalResult = queryResult;
-                    }
-                    else
-                    {
-                        totalResult.Results.AddRange(queryResult.Results);
+                        break;
                     }
 
-                    page++;
-                    start = page * pageSize;
-                    lastNumOfRetrievedResults = queryResult.Results.Count;
                     Thread.Sleep(250);
                 }
             }
 
-            return totalResult;
+            return jobs;
         }
     }
 
@@ -88,7 +80,7 @@ namespace IndeedKeywordByLocation
         public string Query { get; set; }
         public string Location { get; set; }
         public string Radius { get; set; }
-        public string TotalResults { get; set; }
+        public int TotalResults { get; set; }
         public List<Job> Results { get; set; }
 
         public int Start { get; set; }
@@ -113,5 +105,10 @@ namespace IndeedKeywordByLocation
         public bool Expired { get; set; }
         public string FormattedLocationFull { get; set; }
         public string FormattedRelativeTime { get; set; }
+
+        public override string ToString()
+        {
+            return string.Join(" - ", new[] { JobTitle, Company });
+        }
     }
 }
