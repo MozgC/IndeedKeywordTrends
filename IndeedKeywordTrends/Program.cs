@@ -63,12 +63,4 @@ namespace IndeedKeywordTrends
             File.AppendAllLines(outFile, outLines);
         }
     }
-
-    public class IndeedQueryResult
-    {
-        public string Query { get; set; }
-        public string Location { get; set; }
-        public string Radius { get; set; }
-        public string TotalResults { get; set; }
-    }
 }
