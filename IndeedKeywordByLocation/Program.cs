@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using Newtonsoft.Json;
+using Common;
 
 namespace IndeedKeywordByLocation
 {
@@ -12,13 +13,15 @@ namespace IndeedKeywordByLocation
     {
         static void Main(string[] args)
         {
+            string key = Keys.GetIndeedKey();
+
             var outLines = new List<string>();
 
             const string searchTerms = "webgl";
             string outFile = string.Format("'{0}' by location.csv", searchTerms);
             File.WriteAllLines(outFile, new[] { "Query,Date,City,State,Source,Sponsored,Expired,FormattedRelativeTime" });
 
-            var allResults = GetAllPagedResults(searchTerms);
+            var allResults = GetAllPagedResults(searchTerms, key);
 
             outLines.AddRange(
                 allResults.Results.Select(job => string.Format("{0},\"{1}\",{2},{3},\"{4}\",{5},{6},{7},\"{8}\"",
@@ -34,18 +37,18 @@ namespace IndeedKeywordByLocation
             File.AppendAllLines(outFile, groupOutLines);
         }
 
-        public static IndeedQueryResult GetAllPagedResults(string searchTerms)
+        public static IndeedQueryResult GetAllPagedResults(string searchTerms, string indeedApiKey)
         {
             int start = 0;
             const int pageSize = 25;
             int page = 0;
 
-            const string indeedUrlFormat = "http://api.indeed.com/ads/apisearch?publisher=your_api_key_here&" +
-                                           "start={0}&" +
-                                           "limit={1}&" +
-                                           "v=2&" +
-                                           "format=json&" +
-                                           "q={2}&";
+            string indeedUrlFormat = "http://api.indeed.com/ads/apisearch?publisher=" + indeedApiKey + "&" +
+                                     "start={0}&" +
+                                     "limit={1}&" +
+                                     "v=2&" +
+                                     "format=json&" +
+                                     "q={2}&";
 
             IndeedQueryResult totalResult = null;
 

@@ -1,9 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IndeedKeywordTrends", "IndeedKeywordTrends\IndeedKeywordTrends.csproj", "{7EE0520A-5C15-406C-A1A4-6D8707B90510}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IndeedKeywordByLocation", "IndeedKeywordByLocation\IndeedKeywordByLocation.csproj", "{8E0B449C-35BE-4AB1-80FC-762DB047E561}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{54FBE464-9AD2-4690-8F9F-75ABDE69FF92}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CE50E8F3-7D9B-4642-A052-0763CB737BBA}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +28,10 @@ Global
 		{8E0B449C-35BE-4AB1-80FC-762DB047E561}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E0B449C-35BE-4AB1-80FC-762DB047E561}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E0B449C-35BE-4AB1-80FC-762DB047E561}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54FBE464-9AD2-4690-8F9F-75ABDE69FF92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54FBE464-9AD2-4690-8F9F-75ABDE69FF92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54FBE464-9AD2-4690-8F9F-75ABDE69FF92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54FBE464-9AD2-4690-8F9F-75ABDE69FF92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,6 +4,7 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using Newtonsoft.Json;
+using Common;
 
 namespace IndeedKeywordTrends
 {
@@ -11,17 +12,19 @@ namespace IndeedKeywordTrends
     {
         static void Main(string[] args)
         {
+            string key = Keys.GetIndeedKey();
+
             var cities = File.ReadAllLines("cities.txt");
             var keywords = File.ReadAllLines("keywords.txt");
             var radii = new[] { 25, 50 };
 
-            const string indeedUrlFormat = "http://api.indeed.com/ads/apisearch?publisher=your_api_key_here&" +
-                                           "limit=0&" +
-                                           "v=2&" +
-                                           "format=json&" +
-                                           "radius={0}&" +  // radius
-                                           "q={1}&" +       // query
-                                           "l={2}";         // location
+            string indeedUrlFormat = "http://api.indeed.com/ads/apisearch?publisher=" + key + "&" +
+                                     "limit=0&" +
+                                     "v=2&" +
+                                     "format=json&" +
+                                     "radius={0}&" +  // radius
+                                     "q={1}&" +       // query
+                                     "l={2}";         // location
 
             string outFile = "results.csv";
             if (args.Length >= 1)
